@@ -58,7 +58,7 @@ const cvm = new SDK({
 
 ## License
 
-MIT
+Apache 2.0
 
 通过支付宝捐赠：
 

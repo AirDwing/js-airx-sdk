@@ -1,6 +1,6 @@
 {
   "name": "@airx/sdk",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "AirX SDK",
   "main": "src/index.js",
   "dependencies": {
@@ -17,5 +17,5 @@
   },
   "repository": "git@github.com:AirDwing/node-airx-sdk.git",
   "author": "willin <willin@willin.org>",
-  "license": "MIT"
+  "license": "Apache 2.0"
 }
