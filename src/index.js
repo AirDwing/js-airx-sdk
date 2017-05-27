@@ -1,7 +1,6 @@
-const crypto = require('crypto');
 const request = require('request');
 
-const { getDefer } = require('@dwing/common');
+const { getDefer, hmac } = require('@dwing/common');
 const debug = require('debug')('@airx/sdk');
 
 const DEFAULTS = {
@@ -16,11 +15,10 @@ class SDK {
     this.options = Object.assign({}, DEFAULTS, options);
   }
   getSignature(params, opts) {
-    const canoQuery = Object.keys(params).sort()
-    .map(key => `${(key.indexOf('_') ? key.replace(/_/g, '.') : key)}=${params[key]}`)
-    .join('&');
-    const stringToSign = `${opts.method}${this.options.Domain}${opts.url}?${canoQuery}`;
-    const signature = crypto.createHmac(this.options.SignatureMethod === 'HmacSHA256' ? 'sha256' : 'sha1', this.options.SecretKey).update(stringToSign).digest('base64');
+    const toCheck = Object.keys(params).sort()
+    .map(key => `${(key.indexOf('_') ? key.replace(/_/g, '.') : key)}=${params[key]}`).join('&');
+    const signature = hmac(`${opts.method}${this.options.Domain}${opts.url}?${toCheck}`,
+      this.options.SignatureMethod === 'HmacSHA256' ? 'sha256' : 'sha1', this.options.SecretKey);
     return signature;
   }
   request(data, opts) {
