@@ -1,4 +1,5 @@
 const request = require('request');
+const uploader = require('./uploader');
 
 const { getDefer, hmac } = require('@dwing/common');
 const debug = require('debug')('@airx/sdk');
@@ -13,12 +14,14 @@ const DEFAULTS = {
 class SDK {
   constructor(options) {
     this.options = Object.assign({}, DEFAULTS, options);
+    this.uploader = uploader;
   }
   getSignature(params, opts) {
     const toCheck = Object.keys(params).sort()
     .map(key => `${(key.indexOf('_') ? key.replace(/_/g, '.') : key)}=${params[key]}`).join('&');
     const signature = hmac(`${opts.method}${this.options.Domain}${opts.url}?${toCheck}`,
       this.options.SignatureMethod === 'HmacSHA256' ? 'sha256' : 'sha1', this.options.SecretKey);
+    debug(`${opts.method}${this.options.Domain}${opts.url}?${toCheck}`);
     return signature;
   }
   request(data, opts) {
@@ -60,6 +63,9 @@ class SDK {
   }
   post(url, data) {
     return this.request(data, {method: 'POST', url});
+  }
+  upload(data, url) {
+    return this.uploader(data, { method: 'POST', url });
   }
 }
 
