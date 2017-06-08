@@ -11,7 +11,6 @@ module.exports = function (data, opts) {
       value: 'multipart/form-data'
     }
   ];
-  console.log(opts);
 
   opts.timeout = 5000;
   request(opts, (err, res) => {
