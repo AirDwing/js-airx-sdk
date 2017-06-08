@@ -41,13 +41,13 @@ const sdk = new SDK({
 const SDK = require('@airx/sdk');
 const fs = require('fs');
 
-const cvm = new SDK({
+const sdk = new SDK({
   SecretId: 'xxxx',
   SecretKey: 'xxxx'
 });
 
 (async () => {
-  const result = await cvm.upload({
+  const result = await sdk.upload({
     auth: 'xxxx',
     type: 'orgverify',
     file: fs.createReadStream('PATH/TO/xxx.jpg') // 注意这里, 本地文件可以用 path.join 拼装地址,或者直接用Stream
