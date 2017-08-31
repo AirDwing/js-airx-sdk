@@ -1,7 +1,6 @@
 # @airx/sdk
 
-[![npm](https://img.shields.io/npm/v/@airx/sdk.svg?style=plastic)](https://npmjs.org/package/@airx/sdk) [![npm](https://img.shields.io/npm/dm/@airx/sdk.svg?style=plastic)](https://npmjs.org/package/@airx/sdk)
-[![npm](https://img.shields.io/npm/dt/@airx/sdk.svg?style=plastic)](https://npmjs.org/package/@airx/sdk)
+[![npm](https://img.shields.io/npm/v/@airx/sdk.svg)](https://npmjs.org/package/@airx/sdk) [![npm](https://img.shields.io/npm/dm/@airx/sdk.svg)](https://npmjs.org/package/@airx/sdk) [![npm](https://img.shields.io/npm/dt/@airx/sdk.svg)](https://npmjs.org/package/@airx/sdk) [![codebeat badge](https://codebeat.co/badges/300af470-0557-4055-a6f0-4e8507720222)](https://codebeat.co/projects/github-com-airdwing-node-airx-sdk-master)
 
 ## 安装
 

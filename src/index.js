@@ -1,13 +1,13 @@
-const request = require('request');
+const request = require('./request');
 const uploader = require('./uploader');
 
-const { getDefer, hmac } = require('@dwing/common');
+const { hmac } = require('@dwing/common');
 const debug = require('debug')('@airx/sdk');
 
 const DEFAULTS = {
   SecretId: '',
   SecretKey: '',
-  Domain: 'api.dwi.ng',
+  Domain: 'api.airdwing.com',
   Secure: true
 };
 
@@ -32,7 +32,6 @@ class SDK {
     }, data);
     params.Signature = this.getSignature(params, opts);
     debug(params);
-    const deferred = getDefer();
     if (opts.method === 'GET') {
       opts.qs = params;
     } else {
@@ -46,17 +45,7 @@ class SDK {
     }
     opts.timeout = 5000;
     opts.url = `http${this.options.Secure ? 's' : ''}://${this.options.Domain}${opts.url}`;
-    request(opts, (err, res) => {
-      if (err) {
-        deferred.reject(err);
-      }
-      try {
-        deferred.resolve(JSON.parse(res.body));
-      } catch (e) {
-        deferred.reject(err);
-      }
-    });
-    return deferred.promise;
+    return request(opts);
   }
   get(url, data) {
     return this.request(data, {method: 'GET', url});

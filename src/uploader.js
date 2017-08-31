@@ -1,8 +1,6 @@
-const request = require('request');
-const { getDefer } = require('@dwing/common');
+const request = require('./request');
 
-module.exports = function (data, opts) {
-  const deferred = getDefer();
+module.exports = (data, opts) => {
   opts.url = `http${this.options.Secure ? 's' : ''}://${this.options.Domain}${opts.url || '/upload'}`;
   opts.formData = data;
   opts.headers = [
@@ -13,15 +11,5 @@ module.exports = function (data, opts) {
   ];
 
   opts.timeout = 5000;
-  request(opts, (err, res) => {
-    if (err) {
-      deferred.reject(err);
-    }
-    try {
-      deferred.resolve(JSON.parse(res.body));
-    } catch (e) {
-      deferred.reject(err);
-    }
-  });
-  return deferred.promise;
+  return request(opts);
 };
