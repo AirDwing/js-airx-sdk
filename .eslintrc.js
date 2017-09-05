@@ -1,3 +1,4 @@
 module.exports = {
-  "extends": "dwing"
+  root: true,
+  extends: 'dwing'
 };
