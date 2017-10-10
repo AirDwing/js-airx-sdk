@@ -3,6 +3,7 @@ const Base64 = require('crypto-js/enc-base64');
 const hmacSHA1 = require('crypto-js/hmac-sha1');
 const hmacSHA256 = require('crypto-js/hmac-sha256');
 const debug = require('debug')('@airx/sdk');
+const qs = require('qs');
 
 const hmac = { sha1: hmacSHA1, sha256: hmacSHA256 };
 
@@ -41,11 +42,9 @@ class SDK {
     if (opts.method === 'GET') {
       return axios.get(opts.url, {
         params
-      });
+      }).then(x => x.data);
     }
-    return axios.post(opts.url, {
-      data: params
-    });
+    return axios.post(opts.url, qs.stringify(params)).then(x => x.data);
   }
   get(url, data) {
     return this.request(data, { method: 'GET', url });
@@ -60,7 +59,7 @@ class SDK {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
-    });
+    }).then(x => x.data);
   }
 }
 

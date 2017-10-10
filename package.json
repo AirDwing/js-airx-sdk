@@ -1,12 +1,13 @@
 {
   "name": "@airx/sdk",
-  "version": "0.3.1",
+  "version": "0.3.3",
   "description": "AirX SDK",
   "main": "src/index.js",
   "dependencies": {
     "axios": "^0.16.2",
     "crypto-js": "^3.1.9-1",
-    "debug": "*"
+    "debug": "*",
+    "qs": "^6.5.1"
   },
   "devDependencies": {
     "eslint": "*",
@@ -14,5 +15,5 @@
   },
   "repository": "git@github.com:AirDwing/js-airx-sdk.git",
   "author": "willin <willin@willin.org>",
-  "license": "Apache 2.0"
+  "license": "Apache-2.0"
 }
