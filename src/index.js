@@ -18,10 +18,11 @@ class SDK {
     this.options = Object.assign({}, DEFAULTS, options);
     axios.defaults.timeout = 5000;
     axios.defaults.baseURL = `http${this.options.Secure ? 's' : ''}://${this.options.Domain}`;
+    axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
   }
   getSignature(params, opts) {
     const toCheck = Object.keys(params).sort()
-    .map(key => `${(key.indexOf('_') ? key.replace(/_/g, '.') : key)}=${params[key]}`).join('&');
+      .map(key => `${(key.indexOf('_') ? key.replace(/_/g, '.') : key)}=${params[key]}`).join('&');
     const signature = Base64.stringify(hmac[
       this.options.SignatureMethod === 'HmacSHA256' ? 'sha256' : 'sha1'
     ](`${opts.method}${this.options.Domain}${opts.url}?${toCheck}`, this.options.SecretKey));
@@ -55,7 +56,10 @@ class SDK {
   // eslint-disable-next-line class-methods-use-this
   upload(data, url) {
     return axios.post(url, {
-      data
+      data,
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
     });
   }
 }
