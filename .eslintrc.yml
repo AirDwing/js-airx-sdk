@@ -1,0 +1,4 @@
+oot: true
+extends: 'dwing'
+rules:
+  no-param-reassign: 0
