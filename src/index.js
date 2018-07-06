@@ -58,7 +58,8 @@ class SDK {
       data,
       headers: {
         'Content-Type': 'multipart/form-data'
-      }
+      },
+      withCredentials: true
     }).then(x => x.data);
   }
 }
