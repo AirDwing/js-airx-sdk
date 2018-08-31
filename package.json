@@ -1,13 +1,14 @@
 {
   "name": "@airx/sdk",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "AirX SDK",
   "main": "src/index.js",
   "dependencies": {
-    "axios": "^0.16.2",
-    "crypto-js": "^3.1.9-1",
+    "axios": "*",
+    "axios-retry": "*",
+    "crypto-js": "*",
     "debug": "*",
-    "qs": "^6.5.1"
+    "qs": "*"
   },
   "devDependencies": {
     "eslint": "*",

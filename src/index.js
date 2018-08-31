@@ -1,4 +1,5 @@
 const axios = require('axios');
+const AxiosRetry = require('axios-retry');
 const Base64 = require('crypto-js/enc-base64');
 const hmacSHA1 = require('crypto-js/hmac-sha1');
 const hmacSHA256 = require('crypto-js/hmac-sha256');
@@ -20,6 +21,7 @@ class SDK {
     axios.defaults.timeout = 5000;
     axios.defaults.baseURL = `http${this.options.Secure ? 's' : ''}://${this.options.Domain}`;
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+    AxiosRetry(axios);
   }
   getSignature(params, opts) {
     const toCheck = Object.keys(params).sort()
