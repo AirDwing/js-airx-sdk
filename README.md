@@ -19,9 +19,11 @@ const sdk = new SDK({
   SecretId: 'xxxx',
   SecretKey: 'xxxx',
   // 访问的域名:
-  // Domain: 'sandbox.dwi.ng',
+  // Domain: 'api.airdwing.com',
   // 是否启用HTTPS:
   // Secure: true 
+  // 自定义异常捕获方法
+  // catch: (err) => { throw err; }
 });
 
 (async () => {

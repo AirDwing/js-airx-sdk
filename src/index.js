@@ -12,7 +12,8 @@ const DEFAULTS = {
   SecretId: '',
   SecretKey: '',
   Domain: 'api.airdwing.com',
-  Secure: true
+  Secure: true,
+  catch: (err) => { throw err; }
 };
 
 class SDK {
@@ -44,9 +45,9 @@ class SDK {
     if (opts.method === 'GET') {
       return axios.get(opts.url, {
         params
-      }).then(x => x.data);
+      }).then(x => x.data).catch(this.options.catch);
     }
-    return axios.post(opts.url, qs.stringify(params)).then(x => x.data);
+    return axios.post(opts.url, qs.stringify(params)).then(x => x.data).catch(this.options.catch);
   }
   get(url, data) {
     return this.request(data, { method: 'GET', url });
