@@ -21,7 +21,9 @@ const sdk = new SDK({
   // 访问的域名:
   // Domain: 'api.airdwing.com',
   // 是否启用HTTPS:
-  // Secure: true 
+  // Secure: true, 
+  // 自定义预处理方法
+  // filter: x => x.data,
   // 自定义异常捕获方法
   // catch: (err) => { throw err; }
 });
