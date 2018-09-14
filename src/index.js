@@ -54,14 +54,14 @@ class SDK {
     return this.request(data, { method: 'GET', url })
       .then(this.options.filter)
       .catch(e =>
-        this.options.catch(e, { method: 'GET', url, data })
+        this.options.catch(e, { method: 'get', url, data })
       );
   }
   post(url, data) {
     return this.request(data, { method: 'POST', url })
       .then(this.options.filter)
       .catch(e =>
-        this.options.catch(e, { method: 'POST', url, data })
+        this.options.catch(e, { method: 'post', url, data })
       );
   }
   // eslint-disable-next-line class-methods-use-this
@@ -75,7 +75,7 @@ class SDK {
     })
       .then(this.options.filter)
       .catch(e =>
-        this.options.catch(e, { method: 'GET', url, data })
+        this.options.catch(e, { method: 'upload', url, data })
       );
   }
 }
