@@ -46,15 +46,23 @@ class SDK {
     if (opts.method === 'GET') {
       return axios.get(opts.url, {
         params
-      }).then(this.options.filter).catch(this.options.catch);
+      });
     }
-    return axios.post(opts.url, qs.stringify(params)).then(this.options.filter).catch(this.options.catch);
+    return axios.post(opts.url, qs.stringify(params));
   }
   get(url, data) {
-    return this.request(data, { method: 'GET', url });
+    return this.request(data, { method: 'GET', url })
+      .then(this.options.filter)
+      .catch(e =>
+        this.options.catch(e, { method: 'GET', url, data })
+      );
   }
   post(url, data) {
-    return this.request(data, { method: 'POST', url });
+    return this.request(data, { method: 'POST', url })
+      .then(this.options.filter)
+      .catch(e =>
+        this.options.catch(e, { method: 'POST', url, data })
+      );
   }
   // eslint-disable-next-line class-methods-use-this
   upload(data, url) {
@@ -64,7 +72,11 @@ class SDK {
         'Content-Type': 'multipart/form-data'
       },
       withCredentials: true
-    }).then(x => x.data);
+    })
+      .then(this.options.filter)
+      .catch(e =>
+        this.options.catch(e, { method: 'GET', url, data })
+      );
   }
 }
 
