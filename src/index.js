@@ -66,8 +66,7 @@ class SDK {
   }
   // eslint-disable-next-line class-methods-use-this
   upload(data, url) {
-    return axios.post(url, {
-      data,
+    return axios.post(url, data, {
       headers: {
         'Content-Type': 'multipart/form-data'
       },
