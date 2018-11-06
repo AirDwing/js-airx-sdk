@@ -1,6 +1,6 @@
 # @airx/sdk
 
-[![npm](https://img.shields.io/npm/v/@airx/sdk.svg)](https://npmjs.org/package/@airx/sdk) [![npm](https://img.shields.io/npm/dm/@airx/sdk.svg)](https://npmjs.org/package/@airx/sdk) [![npm](https://img.shields.io/npm/dt/@airx/sdk.svg)](https://npmjs.org/package/@airx/sdk) [![codebeat badge](https://codebeat.co/badges/300af470-0557-4055-a6f0-4e8507720222)](https://codebeat.co/projects/github-com-airdwing-node-airx-sdk-master) [![Maintainability](https://api.codeclimate.com/v1/badges/fd7eacc0d56f1303771c/maintainability)](https://codeclimate.com/github/AirDwing/js-airx-sdk/maintainability)
+[![npm](https://img.shields.io/npm/v/@airx/sdk.svg)](https://npmjs.org/package/@airx/sdk) [![npm](https://img.shields.io/npm/dm/@airx/sdk.svg)](https://npmjs.org/package/@airx/sdk) [![npm](https://img.shields.io/npm/dt/@airx/sdk.svg)](https://npmjs.org/package/@airx/sdk) [![codebeat badge](https://codebeat.co/badges/4c2ac939-121c-4f15-8b97-1b84847e076a)](https://codebeat.co/projects/github-com-airdwing-js-airx-sdk-master) [![Maintainability](https://api.codeclimate.com/v1/badges/fd7eacc0d56f1303771c/maintainability)](https://codeclimate.com/github/AirDwing/js-airx-sdk/maintainability)
 
 ## 安装
 
