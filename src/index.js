@@ -43,26 +43,17 @@ class SDK {
     }, data);
     params.Signature = this.getSignature(params, opts);
     debug(params);
-    if (opts.method === 'GET') {
-      return axios.get(opts.url, {
-        params
-      });
-    }
-    return axios.post(opts.url, qs.stringify(params));
+    const request = (opts.method === 'GET') ? axios.get(opts.url, { params }) : axios.post(opts.url, qs.stringify(params));
+    return request.then(this.options.filter)
+      .catch(e =>
+        this.options.catch(e, { method: opts.method, url: opts.url, data })
+      );
   }
   get(url, data) {
-    return this.request(data, { method: 'GET', url })
-      .then(this.options.filter)
-      .catch(e =>
-        this.options.catch(e, { method: 'get', url, data })
-      );
+    return this.request(data, { method: 'GET', url });
   }
   post(url, data) {
-    return this.request(data, { method: 'POST', url })
-      .then(this.options.filter)
-      .catch(e =>
-        this.options.catch(e, { method: 'post', url, data })
-      );
+    return this.request(data, { method: 'POST', url });
   }
   // eslint-disable-next-line class-methods-use-this
   upload(data, url) {
@@ -74,7 +65,7 @@ class SDK {
     })
       .then(this.options.filter)
       .catch(e =>
-        this.options.catch(e, { method: 'upload', url, data })
+        this.options.catch(e, { method: 'UPLOAD', url, data })
       );
   }
 }
