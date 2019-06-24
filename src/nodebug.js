@@ -21,36 +21,36 @@ class SDK {
   constructor(options) {
     this.options = Object.assign({}, DEFAULTS, options);
     axios.defaults.timeout = 5000;
-    axios.defaults.baseURL = `http${this.options.Secure ? 's' : ''}://${this.options.Domain}`;
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
     AxiosRetry(axios);
   }
-  getSignature(params, opts) {
+  getSignature(params, opts, domain) {
     const toCheck = Object.keys(params).sort()
       .map(key => `${(key.indexOf('_') ? key.replace(/_/g, '.') : key)}=${params[key]}`).join('&');
     const signature = Base64.stringify(hmac[
       this.options.SignatureMethod === 'HmacSHA256' ? 'sha256' : 'sha1'
-    ](`${opts.method}${this.options.Domain}${opts.url}?${toCheck}`, this.options.SecretKey));
+    ](`${opts.method}${this.options[domain]}${opts.url}?${toCheck}`, this.options.SecretKey));
     return signature;
   }
-  request(data, opts) {
+  request(data, opts, domain) {
+    axios.defaults.baseURL = `http${this.options.Secure ? 's' : ''}://${this.options[domain]}`;
     const params = Object.assign({
       SecretId: this.options.SecretId,
       Timestamp: parseInt(Date.now() / 1000, 10),
       Nonce: parseInt(Math.random() * 65535, 10)
     }, data);
-    params.Signature = this.getSignature(params, opts);
+    params.Signature = this.getSignature(params, opts, domain);
     const request = (opts.method === 'GET') ? axios.get(opts.url, { params }) : axios.post(opts.url, qs.stringify(params));
     return request.then(this.options.filter)
       .catch(e =>
         this.options.catch(e, { method: opts.method, url: opts.url, data })
       );
   }
-  get(url, data) {
-    return this.request(data, { method: 'GET', url });
+  get(url, data, domain = 'Domain') {
+    return this.request(data, { method: 'GET', url }, domain);
   }
-  post(url, data) {
-    return this.request(data, { method: 'POST', url });
+  post(url, data, domain = 'Domain') {
+    return this.request(data, { method: 'POST', url }, domain);
   }
   // eslint-disable-next-line class-methods-use-this
   upload(data, url) {
