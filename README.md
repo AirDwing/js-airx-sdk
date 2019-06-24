@@ -1,19 +1,15 @@
-# @airx/sdk
-
-[![npm](https://img.shields.io/npm/v/@airx/sdk.svg)](https://npmjs.org/package/@airx/sdk) [![npm](https://img.shields.io/npm/dm/@airx/sdk.svg)](https://npmjs.org/package/@airx/sdk) [![npm](https://img.shields.io/npm/dt/@airx/sdk.svg)](https://npmjs.org/package/@airx/sdk) [![codebeat badge](https://codebeat.co/badges/4c2ac939-121c-4f15-8b97-1b84847e076a)](https://codebeat.co/projects/github-com-airdwing-js-airx-sdk-master) [![Maintainability](https://api.codeclimate.com/v1/badges/fd7eacc0d56f1303771c/maintainability)](https://codeclimate.com/github/AirDwing/js-airx-sdk/maintainability)
-
 ## 安装
 
 ```bash
-npm i --save @airx/sdk
+npm i --save @airx/sdk2
 # 或
-yarn add @airx/sdk
+yarn add @airx/sdk2
 ```
 
 ## 使用
 
 ```js
-const SDK = require('@airx/sdk');
+const SDK = require('@airx/sdk2');
 
 const sdk = new SDK({
   SecretId: 'xxxx',
@@ -41,7 +37,7 @@ const sdk = new SDK({
 需要稍微注意一下的接口:
 
 ```js
-const SDK = require('@airx/sdk');
+const SDK = require('@airx/sdk2');
 const fs = require('fs');
 
 const sdk = new SDK({
@@ -64,7 +60,7 @@ const sdk = new SDK({
 Demo:
 
 ```js
-const SDK = require('@airx/sdk');
+const SDK = require('@airx/sdk2');
 
 const cvm = new SDK({
   SecretId: 'xxxx',
@@ -86,6 +82,3 @@ const cvm = new SDK({
 
 Apache 2.0
 
-通过支付宝捐赠：
-
-![qr](https://cloud.githubusercontent.com/assets/1890238/15489630/fccbb9cc-2193-11e6-9fed-b93c59d6ef37.png)

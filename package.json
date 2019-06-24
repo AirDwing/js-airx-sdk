@@ -1,7 +1,7 @@
 {
-  "name": "@airx/sdk",
-  "version": "0.5.10",
-  "description": "AirX SDK",
+  "name": "@airdwing/sdk",
+  "version": "1.0.0",
+  "description": "AirDwing SDK",
   "main": "src/index.js",
   "dependencies": {
     "axios": "*",
@@ -16,6 +16,6 @@
     "eslint-plugin-import": "*"
   },
   "repository": "git@github.com:AirDwing/js-airx-sdk.git",
-  "author": "willin <willin@willin.org>",
+  "author": "zhangyf92 <zhangyf92@foxmail.com>",
   "license": "Apache-2.0"
 }
