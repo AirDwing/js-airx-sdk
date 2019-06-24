@@ -1,6 +1,6 @@
 {
   "name": "@airx/sdk",
-  "version": "0.5.9",
+  "version": "0.5.10",
   "description": "AirX SDK",
   "main": "src/index.js",
   "dependencies": {
