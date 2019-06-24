@@ -1,5 +1,5 @@
 {
-  "name": "@airdwing/sdk",
+  "name": "@aird/sdk",
   "version": "1.0.0",
   "description": "AirDwing SDK",
   "main": "src/index.js",
