@@ -20,7 +20,6 @@ const DEFAULTS = {
 class SDK {
   constructor(options) {
     this.options = Object.assign({}, DEFAULTS, options);
-    axios.defaults.timeout = 5000;
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
     AxiosRetry(axios);
   }
@@ -33,6 +32,7 @@ class SDK {
     return signature;
   }
   request(data, opts, domain) {
+    axios.defaults.timeout = 10000;
     axios.defaults.baseURL = `http${this.options.Secure ? 's' : ''}://${this.options[domain]}`;
     const params = Object.assign({
       SecretId: this.options.SecretId,
@@ -64,6 +64,23 @@ class SDK {
       .catch(e =>
         this.options.catch(e, { method: 'UPLOAD', url, data })
       );
+  }
+
+  uploadbig(data, url, domain = 'Domain', processCallback) {
+    axios.defaults.timeout = 600000;
+    axios.defaults.baseURL = `http${this.options.Secure ? 's' : ''}://${this.options[domain]}`;
+    return axios.post(url, data, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      onUploadProgress(e) {
+        if (processCallback) {
+          processCallback(e);
+        }
+      }
+    }).then(this.options.filter).catch(e =>
+      this.options.catch(e, { method: 'UPLOADBIG', url, data })
+    );
   }
 }
 
