@@ -43,7 +43,7 @@ class SDK {
     const request = (opts.method === 'GET') ? axios.get(opts.url, { params }) : axios.post(opts.url, qs.stringify(params));
     return request.then(this.options.filter)
       .catch(e =>
-        this.options.catch(e, { method: opts.method, url: opts.url, data })
+        this.options.catch(e, { method: opts.method, url: opts.url, data, domain })
       );
   }
   get(url, data, domain = 'Domain') {
@@ -79,7 +79,7 @@ class SDK {
         }
       }
     }).then(this.options.filter).catch(e =>
-      this.options.catch(e, { method: 'UPLOADBIG', url, data })
+      this.options.catch(e, { method: 'UPLOADBIG', url, data, domain })
     );
   }
 }
