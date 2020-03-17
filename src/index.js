@@ -23,6 +23,9 @@ class SDK {
     axios.defaults.timeout = 5000;
     axios.defaults.baseURL = `http${this.options.Secure ? 's' : ''}://${this.options.Domain}`;
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+    axios.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded';
+    axios.defaults.headers.delete['Content-Type'] = 'application/x-www-form-urlencoded';
+
     AxiosRetry(axios);
   }
   getSignature(params, opts) {
@@ -43,7 +46,19 @@ class SDK {
     }, data);
     params.Signature = this.getSignature(params, opts);
     debug(params);
-    const request = (opts.method === 'GET') ? axios.get(opts.url, { params }) : axios.post(opts.url, qs.stringify(params));
+    let request;
+    if (opts.method === 'GET') {
+      request = axios.get(opts.url, { params });
+    } else if (opts.method === 'POST') {
+      request = axios.post(opts.url, qs.stringify(params));
+    } else if (opts.method === 'PUT') {
+      request = axios.put(opts.url, qs.stringify(params));
+    } else if (opts.method === 'DELETE') {
+      const innerOpts = {
+        data: qs.stringify(params)
+      };
+      request = axios.delete(opts.url, innerOpts);
+    }
     return request.then(this.options.filter)
       .catch(e =>
         this.options.catch(e, { method: opts.method, url: opts.url, data })
@@ -54,6 +69,12 @@ class SDK {
   }
   post(url, data) {
     return this.request(data, { method: 'POST', url });
+  }
+  put(url, data) {
+    return this.request(data, { method: 'PUT', url });
+  }
+  delete(url, data) {
+    return this.request(data, { method: 'DELETE', url });
   }
   // eslint-disable-next-line class-methods-use-this
   upload(data, url) {
