@@ -1,15 +1,24 @@
 ## 安装
 
 ```bash
-npm i --save @airx/sdk2
+npm i --save @aird/sdk
 # 或
-yarn add @airx/sdk2
+yarn add @aird/sdk
 ```
+
+## 支持方法
+
+除get外，默认application/x-www-form-urlencoded
+
+- get
+- post
+- put
+- delete
 
 ## 使用
 
 ```js
-const SDK = require('@airx/sdk2');
+const SDK = require('@aird/sdk');
 
 const sdk = new SDK({
   SecretId: 'xxxx',
@@ -37,7 +46,7 @@ const sdk = new SDK({
 需要稍微注意一下的接口:
 
 ```js
-const SDK = require('@airx/sdk2');
+const SDK = require('@aird/sdk');
 const fs = require('fs');
 
 const sdk = new SDK({
@@ -60,7 +69,7 @@ const sdk = new SDK({
 Demo:
 
 ```js
-const SDK = require('@airx/sdk2');
+const SDK = require('@aird/sdk');
 
 const cvm = new SDK({
   SecretId: 'xxxx',
