@@ -52,7 +52,7 @@ class SDK {
     } else if (opts.method === 'DELETE') {
       request = axios.delete(opts.url, { data: qs.stringify(params) });
     } else {
-      request = axios[opts.method](opts.url, qs.stringify(params));
+      request = axios[opts.method.toLowerCase()](opts.url, qs.stringify(params));
     }
     return request.then(this.options.filter)
       .catch(e =>
