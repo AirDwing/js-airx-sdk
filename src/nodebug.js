@@ -17,10 +17,14 @@ const DEFAULTS = {
   catch: (err) => { throw err; }
 };
 
+const arr = ['post', 'put', 'delete'];
+
 class SDK {
   constructor(options) {
     this.options = Object.assign({}, DEFAULTS, options);
-    axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+    arr.forEach((x) => {
+      axios.defaults.headers[x]['Content-Type'] = 'application/x-www-form-urlencoded';
+    });
     AxiosRetry(axios);
   }
   getSignature(params, opts, domain) {
@@ -32,6 +36,7 @@ class SDK {
     return signature;
   }
   request(data, opts, domain) {
+    domain = domain || 'Domain';
     axios.defaults.timeout = 10000;
     axios.defaults.baseURL = `http${this.options.Secure ? 's' : ''}://${this.options[domain]}`;
     const params = Object.assign({
@@ -40,17 +45,31 @@ class SDK {
       Nonce: parseInt(Math.random() * 65535, 10)
     }, data);
     params.Signature = this.getSignature(params, opts, domain);
-    const request = (opts.method === 'GET') ? axios.get(opts.url, { params }) : axios.post(opts.url, qs.stringify(params));
+    // const request = (opts.method === 'GET') ? axios.get(opts.url, { params }) : axios.post(opts.url, qs.stringify(params));
+    let request;
+    if (opts.method === 'GET') {
+      request = axios.get(opts.url, { params });
+    } else if (opts.method === 'DELETE') {
+      request = axios.delete(opts.url, { data: qs.stringify(params) });
+    } else {
+      request = axios[opts.method](opts.url, qs.stringify(params));
+    }
     return request.then(this.options.filter)
       .catch(e =>
         this.options.catch(e, { method: opts.method, url: opts.url, data, domain })
       );
   }
-  get(url, data, domain = 'Domain') {
+  get(url, data, domain) {
     return this.request(data, { method: 'GET', url }, domain);
   }
-  post(url, data, domain = 'Domain') {
+  post(url, data, domain) {
     return this.request(data, { method: 'POST', url }, domain);
+  }
+  put(url, data, domain) {
+    return this.request(data, { method: 'PUT', url }, domain);
+  }
+  delete(url, data, domain) {
+    return this.request(data, { method: 'DELETE', url }, domain);
   }
   // eslint-disable-next-line class-methods-use-this
   upload(data, url) {
