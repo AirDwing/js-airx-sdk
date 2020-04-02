@@ -1,6 +1,6 @@
 {
   "name": "@aird/sdk",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "AirDwing SDK",
   "main": "src/index.js",
   "dependencies": {
